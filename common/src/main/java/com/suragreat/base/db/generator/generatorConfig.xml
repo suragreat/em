@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="context1" defaultModelType="flat" targetRuntime="MyBatis3Simple">
+		<commentGenerator
+			type="com.suragreat.base.db.generator.MyBatisCommentGenerator">
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		<jdbcConnection connectionURL="jdbc:oracle:thin:@10.132.81.134:1521:dsdb1"
+			driverClass="oracle.jdbc.OracleDriver" password="mopene" userId="mopene" />
+		<javaTypeResolver
+			type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<javaModelGenerator targetPackage="com.shengpay.mas.selftest.model"
+			targetProject="mselftest-common">
+			<property name="rootClass" value="com.shengpay.mas.selftest.model.BaseObject" />
+		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="com.shengpay.mas.selftest.mapper"
+			targetProject="mselftest-dao" />
+		<javaClientGenerator targetPackage="com.shengpay.mas.selftest.mapper"
+			targetProject="mselftest-dao" type="ANNOTATEDMAPPER" />
+			
+		<table tableName="module" >
+			<generatedKey column="id"
+				sqlStatement="select SEQ_MODULE.nextval from dual" />
+			<columnOverride column="status"
+                            javaType="com.suragreat.base.constant.TrueFalseEnum" typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="mapping_groups" javaType="Set&lt;String&gt;"
+				typeHandler="com.suragreat.base.db.handler.SetStringJsonTypeHandler" />
+		</table>
+
+		<table tableName="api">
+			<generatedKey column="id" sqlStatement="select SEQ_API.nextval from dual" />
+			<columnOverride column="status"
+                            javaType="com.suragreat.base.constant.TrueFalseEnum" typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="protocol"
+				javaType="com.shengpay.mas.selftest.constant.APIProtocolEnum"
+				typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="request_type"
+				javaType="com.shengpay.mas.selftest.constant.RequestTypeEnum"
+				typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="request_method"
+				javaType="com.shengpay.mas.selftest.constant.RequestMethodEnum"
+				typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+		</table>
+
+		<table tableName="api_version">
+			<generatedKey column="id" sqlStatement="select SEQ_API_VERSION.nextval from dual" />
+			<columnOverride column="status"
+                            javaType="com.suragreat.base.constant.TrueFalseEnum" typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="mac_method"
+				javaType="com.shengpay.mas.selftest.constant.MacMethodEnum"
+				typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="mapping_codes" javaType="List&lt;MappingCode&gt;"
+				typeHandler="com.shengpay.mas.selftest.db.handler.ListMappingCodeJsonTypeHandler" />
+			<columnOverride column="SDK_SAMPLES" javaType="List&lt;SdkSample&gt;"
+				typeHandler="com.shengpay.mas.selftest.db.handler.ListSdkSampleJsonTypeHandler" />
+		</table>
+
+		<table tableName="request_param">
+			<generatedKey column="id" sqlStatement="select SEQ_REQUEST_PARAM.nextval from dual" />
+			<columnOverride column="mandatory"
+                            javaType="com.suragreat.base.constant.TrueFalseEnum" typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="param_type"
+				javaType="com.shengpay.mas.selftest.constant.ParameterTypeEnum"
+				typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="data_type"
+				javaType="com.shengpay.mas.selftest.constant.ParameterDataTypeEnum"
+				typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="array"
+				javaType="com.suragreat.base.constant.TrueFalseEnum"
+				typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+		</table>
+
+		<table tableName="response_param">
+			<generatedKey column="id" sqlStatement="select SEQ_RESPONSE_PARAM.nextval from dual" />
+			<columnOverride column="mandatory"
+                            javaType="com.suragreat.base.constant.TrueFalseEnum" typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="param_type"
+				javaType="com.shengpay.mas.selftest.constant.ParameterTypeEnum"
+				typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="data_type"
+				javaType="com.shengpay.mas.selftest.constant.ParameterDataTypeEnum"
+				typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+			<columnOverride column="array"
+				javaType="com.suragreat.base.constant.TrueFalseEnum"
+				typeHandler="com.suragreat.base.db.handler.SerializableEnumTypeHandler" />
+		</table>
+	</context>
+</generatorConfiguration>

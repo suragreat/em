@@ -1,0 +1,3 @@
+# Application Listeners
+org.springframework.context.ApplicationListener=\
+com.suragreat.base.listener.LocationsSettingConfigFileApplicationListener
