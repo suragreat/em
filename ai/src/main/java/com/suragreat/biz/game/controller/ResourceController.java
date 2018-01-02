@@ -9,6 +9,8 @@ import com.suragreat.biz.game.HttpConstant;
 import com.suragreat.biz.game.model.Swiper;
 import com.suragreat.biz.game.service.GameService;
 import com.suragreat.biz.game.service.SwiperCacheStore;
+import me.chanjar.weixin.common.bean.WxJsapiSignature;
+import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +61,17 @@ public class ResourceController extends BaseController {
     @ResponseBody
     public ResponseListContainer<Swiper> getSwipers(HttpServletRequest request) {
         return successList(swiperService.getSwipers());
+    }
+
+    @RequestMapping(value = {"/jsconfig"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseObjectContainer<WxJsapiSignature> jsconfig(HttpServletRequest request) throws WxErrorException {
+        String url = request.getHeader("referer");
+        int idx = url.indexOf("#");
+        if (idx > 0) {
+            url = url.substring(0, idx);
+        }
+        return success(wxMpService.createJsapiSignature(url));
     }
 
     @RequestMapping(value = {"/swiper"}, method = {RequestMethod.POST})
