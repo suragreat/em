@@ -2,6 +2,7 @@ package com.suragreat.biz.ai.service;
 
 import com.baidu.aip.imageclassify.AipImageClassify;
 import com.baidu.aip.nlp.AipNlp;
+import com.baidu.aip.ocr.AipOcr;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.suragreat.base.constant.ServerErrorEnum;
@@ -30,6 +31,8 @@ public class ImageClassifyService {
     private AipImageClassify imageClassify;
     @Autowired
     private AipNlp aipNlp;
+    @Autowired
+    private AipOcr aipOcr;
 
     public String dishDetect(String url) {
         HashMap<String, String> options = new HashMap<String, String>();
@@ -73,6 +76,12 @@ public class ImageClassifyService {
         }
 
         return result;
+    }
+
+    public String ocrWord( byte[] imgData){
+        HashMap<String, String> options = new HashMap<>();
+        JSONObject result = aipOcr.general(imgData, options);
+        return result.toString();
     }
 
     private boolean wordSim(String name1, String name2) {

@@ -2,6 +2,7 @@ package com.suragreat.biz.ai.config;
 
 import com.suragreat.base.db.util.DecryptDataSourceTool;
 import com.suragreat.biz.ai.sdk.tencent.ImageEffectApi;
+import com.suragreat.biz.ai.sdk.tencent.NlpApi;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -45,5 +46,12 @@ public class TencentAiConfiguaration {
         Map<String, String> tmp = new HashMap<>();
         decryptMap(faceMerge, tmp);
         return new ImageEffectApi(tmp.get(APP_ID), tmp.get(API_KEY));
+    }
+
+    @Bean
+    public NlpApi nlpApi() {
+        Map<String, String> tmp = new HashMap<>();
+        decryptMap(faceMerge, tmp);
+        return new NlpApi(tmp.get(APP_ID), tmp.get(API_KEY));
     }
 }

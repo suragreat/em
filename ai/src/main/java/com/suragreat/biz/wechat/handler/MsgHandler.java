@@ -1,14 +1,17 @@
 package com.suragreat.biz.wechat.handler;
 
 
-import com.suragreat.biz.wechat.builder.TextBuilder;
+import com.suragreat.base.util.CryptUtil;
 import com.suragreat.base.util.JsonUtils;
+import com.suragreat.biz.ai.service.NlpService;
+import com.suragreat.biz.wechat.builder.TextBuilder;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -20,7 +23,8 @@ import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
  */
 @Component
 public class MsgHandler extends AbstractHandler {
-
+    @Autowired
+    private NlpService nlpService;
 
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
@@ -45,7 +49,15 @@ public class MsgHandler extends AbstractHandler {
         }
 
         //TODO 组装回复消息
-        String content = "收到信息内容：" + JsonUtils.toJSON(wxMessage);
+        String content;
+        if ("whoami".equalsIgnoreCase(wxMessage.getContent()) || "whoru".equalsIgnoreCase(wxMessage.getContent())) {
+            content = "I'm Wayne. Nice to meet you.";
+        } else {
+            content = nlpService.ask(CryptUtil.md5(wxMessage.getFromUser(), "abc"), wxMessage.getContent());
+        }
+        if (StringUtils.isBlank(content)) {
+            content = "收到信息内容：" + JsonUtils.toJSON(wxMessage);
+        }
 
         return new TextBuilder().build(content, wxMessage, weixinService);
 

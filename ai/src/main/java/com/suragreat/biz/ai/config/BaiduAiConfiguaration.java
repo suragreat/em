@@ -2,6 +2,7 @@ package com.suragreat.biz.ai.config;
 
 import com.baidu.aip.imageclassify.AipImageClassify;
 import com.baidu.aip.nlp.AipNlp;
+import com.baidu.aip.ocr.AipOcr;
 import com.suragreat.base.db.util.DecryptDataSourceTool;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -58,5 +59,12 @@ public class BaiduAiConfiguaration {
         Map<String, String> tmp = new HashMap<>();
         decryptMap(aipImageClassify, tmp);
         return new AipImageClassify(tmp.get(APP_ID), tmp.get(API_KEY), tmp.get(SECRET_KEY));
+    }
+
+    @Bean
+    public AipOcr aipOcr(){
+        Map<String, String> tmp = new HashMap<>();
+        decryptMap(aipImageClassify, tmp);
+        return new AipOcr(tmp.get(APP_ID), tmp.get(API_KEY), tmp.get(SECRET_KEY));
     }
 }

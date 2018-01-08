@@ -1,5 +1,7 @@
 package com.suragreat.biz.ai.sdk.tencent.util;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.*;
 import java.util.Base64;
 
@@ -38,16 +40,28 @@ public class ImageUtil {
     }
 
     public static String toBase64(InputStream inputStream) throws IOException {
+        return Base64.getEncoder().encodeToString(toByteArray(inputStream));
+    }
+
+    public static byte[] toByteArray(InputStream inputStream) throws IOException {
         ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int len = -1;
-        while ((len = inputStream.read(buffer)) != -1) {
-            //write(byte[] b, int off, int len)
-            //将指定 byte 数组中从偏移量 off 开始的 len 个字节写入此 byte 数组输出流。
-            outSteam.write(buffer, 0, len);
+        try {
+            byte[] buffer = new byte[1024];
+            int len = -1;
+            while ((len = inputStream.read(buffer)) != -1) {
+                //write(byte[] b, int off, int len)
+                //将指定 byte 数组中从偏移量 off 开始的 len 个字节写入此 byte 数组输出流。
+                outSteam.write(buffer, 0, len);
+            }
+            return outSteam.toByteArray();
+        } finally {
+            IOUtils.closeQuietly(outSteam);
+            IOUtils.closeQuietly(inputStream);
         }
-        outSteam.close();
-        inputStream.close();
-        return Base64.getEncoder().encodeToString(outSteam.toByteArray());
+    }
+
+    public static  byte[] toByteArray(String filePath) throws IOException {
+        FileInputStream in = new FileInputStream(filePath);
+        return toByteArray(in);
     }
 }
