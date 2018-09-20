@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.suragreat.base.model.ResponseContainer;
 
 @Controller
-public class MasErrorController implements ErrorController {
+public class GeneralErrorController implements ErrorController {
 
     private static final String ERROR_MODEL_VIEW = "error";
 
