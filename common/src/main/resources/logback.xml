@@ -20,18 +20,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.shengpay.mas">
-		<level value="INFO" />
-	</logger>
-
-	<logger name="com.shengpay.sars">
-		<level value="WARN" />
-	</logger>
-
-	<logger name="com.snda.cache">
-		<level value="WARN" />
-	</logger>
-
+	
 	<logger name="org.springframework">
 		<level value="WARN" />
 	</logger>
@@ -44,12 +33,6 @@
 		<level value="WARN" />
 	</logger>
 
-	<logger name="net.rubyeye.xmemcached">
-		<level value="ERROR" />
-	</logger>
-	<logger name="com.google.code.yanf4j">
-		<level value="ERROR" />
-	</logger>
 	<logger name="org.apache.commons">
 		<level value="ERROR" />
 	</logger>
